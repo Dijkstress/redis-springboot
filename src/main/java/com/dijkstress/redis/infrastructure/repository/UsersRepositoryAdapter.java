@@ -30,6 +30,13 @@ public class UsersRepositoryAdapter implements UsersRepositoryPort {
 
     @Override
     public Optional<Users> findById(Long id) {
+        try {
+            Thread.sleep(5_000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
+
         return jpaUsersRepository.findById(id)
                 .map(e -> new Users(e.getId(), e.getName(), e.getEmail()));
     }
